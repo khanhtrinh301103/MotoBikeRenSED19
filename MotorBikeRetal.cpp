@@ -197,7 +197,7 @@ int main() {
                     std::cout << "Enter your password: ";
                     std::cin >> password;
 
-                    // Find and authenticate the member
+                    // Find and authenticate member list
                     for (Member& member : members) {
                         if (member.login(username, password, admin)) {
                             loggedInMember = &member;
