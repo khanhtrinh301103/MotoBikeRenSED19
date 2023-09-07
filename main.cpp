@@ -2,6 +2,7 @@
 #include "AdminLogin.h"
 #include "UserLogin.h"
 #include "RegisterAccount.h"
+#include "AdminUI.h" // Include the AdminUI header
 
 using namespace std;
 
@@ -31,7 +32,7 @@ int main() {
 
                     if (AdminLogin::isAdminLoginValid(username, password)) {
                         cout << "Admin login successful. Welcome, " << username << "!" << endl;
-                        // Add admin-specific functionality here
+                        AdminUI::showMenu(); // Show the admin menu
                     } else {
                         cout << "Admin login failed. Please check your username and password." << endl;
                     }
@@ -69,10 +70,14 @@ int main() {
                     string confirmPassword;
                     cin >> confirmPassword;
 
-                    if (RegisterAccount::registerUser(newUsername, newPassword, confirmPassword)) {
-                        cout << "Registration successful. You can now log in as a user." << endl;
+                    if (newPassword == confirmPassword) {
+                        if (RegisterAccount::registerUser(newUsername, newPassword, confirmPassword)) {
+                            cout << "Registration successful. You can now log in as a user." << endl;
+                        } else {
+                            cout << "Registration failed. Please try again." << endl;
+                        }
                     } else {
-                        cout << "Registration failed. Please try again." << endl;
+                        cout << "Password confirmation does not match. Please try again." << endl;
                     }
                 }
                 break;
