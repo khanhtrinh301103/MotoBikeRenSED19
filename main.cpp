@@ -10,7 +10,7 @@ int main() {
     int choice;
 
     while (true) {
-        cout << "\nWelcome to the EliteMoto service!" << endl;
+        cout << "\nWelcome to the EliteMoto rental service!" << endl;
         cout << "1. Login" << endl;
         cout << "2. Register" << endl;
         cout << "3. Exit" << endl;
