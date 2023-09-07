@@ -1,6 +1,10 @@
-+-------------+--------+---------+-------------+----------------+----------+-----------------------------------------+---------+-----------------------+----------+
-| MotorbikeID | umodel | color   | engine size | transmission   | yearMade | description                             | ownerID | expectedRentedRate   | rateID   |
-| int         | string | string  | int         | enum           | int      | string                                  | int     | percentage string    | int      |
-+-------------+--------+---------+-------------+----------------+----------+-----------------------------------------+---------+-----------------------+----------+
-| 12345       | Yamaha | Blue    | 600         | Manual         | 2022     | Fast and comfortable for all            | 789     | 10%                  | 56789    |
-+-------------+--------+---------+-------------+----------------+----------+-----------------------------------------+---------+-----------------------+----------+
+MotorbikeID: 12345
+Model: suzuki
+Color: red
+Engine Size: 500
+Transmission Mode: credit
+Year Made: 2023
+Description: fast
+Owner ID: 567
+Expected Rented Rate: 5%
+Rate ID: 98654
