@@ -3,6 +3,7 @@
 #include "UserLogin.h"
 #include "RegisterAccount.h"
 #include "AdminUI.h"
+#include "ProductDetails.h" // Include the ProductDetails header
 
 using namespace std;
 
@@ -13,8 +14,9 @@ int main() {
         cout << "\nWelcome to the EliteMoto rental service!" << endl;
         cout << "1. Login" << endl;
         cout << "2. Register" << endl;
-        cout << "3. Exit" << endl;
-        cout << "Enter your choice (1/2/3): ";
+        cout << "3. View Motorbikes Available" << endl; // New option
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice (1/2/3/4): ";
 
         cin >> choice;
 
@@ -66,10 +68,15 @@ int main() {
                 }
                 break;
             case 3:
+                // Display product details when choosing option 3
+                cout << "\nViewing available motorbikes:" << endl;
+                ProductDetails::displayProductDetails(); // Call the function using the class
+                break;
+            case 4:
                 cout << "Exiting the program. Goodbye!" << endl;
                 return 0; // Exit the program
             default:
-                cout << "Invalid choice. Please enter a valid option (1/2/3)." << endl;
+                cout << "Invalid choice. Please enter a valid option (1/2/3/4)." << endl;
                 break;
         }
     }
