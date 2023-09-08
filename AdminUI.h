@@ -19,8 +19,9 @@ public:
             std::cout << "1. View all user accounts" << std::endl;
             std::cout << "2. View Product Details" << std::endl; // New option
             std::cout << "3. Edit Product Details" << std::endl; // New option
-            std::cout << "4. Log out" << std::endl;
-            std::cout << "Enter your choice (1/2/3/4): ";
+            std::cout << "4. Add New Motorbike" << std::endl;    // New option
+            std::cout << "5. Log out" << std::endl;
+            std::cout << "Enter your choice (1/2/3/4/5): ";
 
             std::cin >> choice;
 
@@ -32,13 +33,16 @@ public:
                     viewProductDetails(); // New function to view product details
                     break;
                 case 3:
-                    editProductDetails(); // New function to edit product details
+                    EditProductDetails(); // New function to edit product details
                     break;
                 case 4:
+                    AddNewMotorbike();    // New function to add a new motorbike
+                    break;
+                case 5:
                     std::cout << "Exiting admin account. Goodbye!" << std::endl;
                     return;
                 default:
-                    std::cout << "Invalid choice. Please enter a valid option (1/2/3/4)." << std::endl;
+                    std::cout << "Invalid choice. Please enter a valid option (1/2/3/4/5)." << std::endl;
                     break;
             }
         }
@@ -79,97 +83,206 @@ private:
         }
     }
 
-    static void editProductDetails() {
-        int motorbikeIDToEdit;
-        std::cout << "Enter the MotorbikeID to edit: ";
-        std::cin >> motorbikeIDToEdit;
+    static void EditProductDetails()
+    {
+        std::cout << "Enter the MotorbikeID to edit details: ";
+        std::string motorbikeIdToEdit;
+        std::cin >> motorbikeIdToEdit;
 
-        // Open the input file stream in read mode and output file stream in write mode
-        std::fstream file("ProductDetail.txt", std::ios::in | std::ios::out);
+        std::string fileName = "ProductDetail.txt"; // Use just the file name
 
-        if (!file.is_open()) {
-            std::cerr << "Failed to open the file for editing." << std::endl;
+        std::ifstream inputFile(fileName);
+        if (!inputFile)
+        {
+            std::cout << "File not found." << std::endl;
             return;
         }
 
-        bool motorbikeFound = false;
+        std::vector<std::string> lines;
         std::string line;
-        std::streampos linePos;
-        std::streampos nextLinePos;
 
-        // Search for the specified MotorbikeID in the file
-        while (std::getline(file, line)) {
-            linePos = file.tellg(); // Store the position of the line
+        while (std::getline(inputFile, line))
+        {
+            lines.push_back(line);
+        }
 
-            // Check if the line contains the specified MotorbikeID
-            if (line.find("MotorbikeID: " + std::to_string(motorbikeIDToEdit)) != std::string::npos) {
-                motorbikeFound = true;
+        inputFile.close();
 
-                // Ask the admin to enter new values for each field except MotorbikeID and update them
-                std::string model, color, transmission, description, expectedRentedRate;
-                int engineSize, yearMade, ownerID, rateID;
+        bool found = false;
 
-                // Skip the MotorbikeID line
-                std::getline(file, line);
+        for (size_t i = 0; i < lines.size(); i++)
+        {
+            if (lines[i].find("MotorbikeID: " + motorbikeIdToEdit) != std::string::npos)
+            {
+                // You can edit the details here
+                std::cout << "Found MotorbikeID: " << motorbikeIdToEdit << std::endl;
+                std::cout << "Current details:" << std::endl;
 
-                // Read and update the rest of the fields
-                std::cout << "Enter new Model: ";
-                std::cin.ignore(); // Clear the input buffer
-                std::getline(std::cin, model);
-                std::cout << "Enter new Color: ";
-                std::getline(std::cin, color);
-                std::cout << "Enter new Engine Size: ";
-                std::cin >> engineSize;
-                std::cout << "Enter new Transmission Mode: ";
-                std::cin.ignore(); // Clear the input buffer
-                std::getline(std::cin, transmission);
-                std::cout << "Enter new Year Made: ";
-                std::cin >> yearMade;
-                std::cout << "Enter new Description: ";
-                std::cin.ignore(); // Clear the input buffer
-                std::getline(std::cin, description);
-                std::cout << "Enter new Owner ID: ";
-                std::cin >> ownerID;
-                std::cout << "Enter new Expected Rented Rate: ";
-                std::cin.ignore(); // Clear the input buffer
-                std::getline(std::cin, expectedRentedRate);
-                std::cout << "Enter new Rate ID: ";
-                std::cin >> rateID;
+                // Print current details
+                for (size_t j = i; j < i + 9; j++)
+                {
+                    std::cout << lines[j] << std::endl;
+                }
 
-                // Move to the next line
-                std::getline(file, line);
-                nextLinePos = file.tellg();
+                // Prompt for new details
+                std::cout << "\nEnter new details:" << std::endl;
 
-                // Go back to the beginning of the line and replace it with the updated content
-                file.seekp(linePos);
-                file << "Model: " << model << std::endl;
-                file << "Color: " << color << std::endl;
-                file << "Engine Size: " << engineSize << std::endl;
-                file << "Transmission Mode: " << transmission << std::endl;
-                file << "Year Made: " << yearMade << std::endl;
-                file << "Description: " << description << std::endl;
-                file << "Owner ID: " << ownerID << std::endl;
-                file << "Expected Rented Rate: " << expectedRentedRate << std::endl;
-                file << "Rate ID: " << rateID << std::endl;
+                std::cout << "Model: ";
+                std::string newModel;
+                std::cin.ignore(); // Clear the newline left in the buffer
+                std::getline(std::cin, newModel);
+                lines[i + 1] = "Model: " + newModel;
 
-                // Set the file position to the end of the updated content
-                file.seekp(nextLinePos);
+                std::cout << "Color: ";
+                std::string newColor;
+                std::getline(std::cin, newColor);
+                lines[i + 2] = "Color: " + newColor;
 
-                break; // Stop searching since the MotorbikeID was found and updated
+                std::cout << "Engine Size: ";
+                std::string newEngineSize;
+                std::getline(std::cin, newEngineSize);
+                lines[i + 3] = "Engine Size: " + newEngineSize;
+
+                std::cout << "Transmission Mode: ";
+                std::string newTransmissionMode;
+                std::getline(std::cin, newTransmissionMode);
+                lines[i + 4] = "Transmission Mode: " + newTransmissionMode;
+
+                std::cout << "Year Made: ";
+                std::string newYearMade;
+                std::getline(std::cin, newYearMade);
+                lines[i + 5] = "Year Made: " + newYearMade;
+
+                std::cout << "Description: ";
+                std::string newDescription;
+                std::getline(std::cin, newDescription);
+                lines[i + 6] = "Description: " + newDescription;
+
+                std::cout << "Owner ID: ";
+                std::string newOwnerId;
+                std::getline(std::cin, newOwnerId);
+                lines[i + 7] = "Owner ID: " + newOwnerId;
+
+                std::cout << "Expected Rented Rate: ";
+                std::string newRentedRate;
+                std::getline(std::cin, newRentedRate);
+                lines[i + 8] = "Expected Rented Rate: " + newRentedRate;
+
+                std::cout << "Rate ID: ";
+                std::string newRateId;
+                std::getline(std::cin, newRateId);
+                lines[i + 9] = "Rate ID: " + newRateId;
+
+                std::ofstream outputFile(fileName);
+                if (outputFile)
+                {
+                    for (const std::string &modifiedLine : lines)
+                    {
+                        outputFile << modifiedLine << std::endl;
+                    }
+
+                    outputFile.close();
+                    std::cout << "Details updated successfully." << std::endl;
+                }
+                else
+                {
+                    std::cout << "Error writing to the file." << std::endl;
+                }
+
+                found = true;
+                break;
             }
         }
 
-        // Close the file stream
-        file.close();
-
-        if (motorbikeFound) {
-            std::cout << "Product details updated successfully." << std::endl;
-        } else {
-            std::cout << "Motorbike with MotorbikeID " << motorbikeIDToEdit << " not found." << std::endl;
+        if (!found)
+        {
+            std::cout << "MotorbikeID not found." << std::endl;
         }
     }
 
+        static void AddNewMotorbike() {
+        std::ofstream productFile("ProductDetail.txt", std::ios::app); // Append mode
 
+        if (productFile.is_open()) {
+            std::cout << "\nAdd New Motorbike:" << std::endl;
+
+            std::string motorbikeId;
+            std::cout << "MotorbikeID: ";
+            std::cin >> motorbikeId;
+
+            // Check if the motorbike ID already exists (you may need to modify this check)
+            if (motorbikeIdExists(motorbikeId)) {
+                std::cout << "MotorbikeID already exists. Please choose a unique ID." << std::endl;
+                return;
+            }
+
+            // Input the rest of the motorbike details
+            std::string model, color, engineSize, transmissionMode, yearMade, description, ownerId, rentedRate, rateId;
+
+            std::cin.ignore(); // Clear the newline left in the buffer
+
+            std::cout << "Model: ";
+            std::getline(std::cin, model);
+
+            std::cout << "Color: ";
+            std::getline(std::cin, color);
+
+            std::cout << "Engine Size: ";
+            std::getline(std::cin, engineSize);
+
+            std::cout << "Transmission Mode: ";
+            std::getline(std::cin, transmissionMode);
+
+            std::cout << "Year Made: ";
+            std::getline(std::cin, yearMade);
+
+            std::cout << "Description: ";
+            std::getline(std::cin, description);
+
+            std::cout << "Owner ID: ";
+            std::getline(std::cin, ownerId);
+
+            std::cout << "Expected Rented Rate: ";
+            std::getline(std::cin, rentedRate);
+
+            std::cout << "Rate ID: ";
+            std::getline(std::cin, rateId);
+
+            // Write the new motorbike details to the file
+            productFile << "\nMotorbikeID: " << motorbikeId << std::endl;
+            productFile << "Model: " << model << std::endl;
+            productFile << "Color: " << color << std::endl;
+            productFile << "Engine Size: " << engineSize << std::endl;
+            productFile << "Transmission Mode: " << transmissionMode << std::endl;
+            productFile << "Year Made: " << yearMade << std::endl;
+            productFile << "Description: " << description << std::endl;
+            productFile << "Owner ID: " << ownerId << std::endl;
+            productFile << "Expected Rented Rate: " << rentedRate << std::endl;
+            productFile << "Rate ID: " << rateId << std::endl;
+
+            productFile.close();
+            std::cout << "New motorbike added successfully." << std::endl;
+        } else {
+            std::cerr << "Failed to open product details file." << std::endl;
+        }
+    }
+
+    // Add this function inside the AdminUI class in AdminUI.h
+
+    static bool motorbikeIdExists(const std::string& motorbikeId) {
+        std::ifstream productFile("ProductDetail.txt");
+        std::string line;
+
+        while (std::getline(productFile, line)) {
+            if (line.find("MotorbikeID: " + motorbikeId) != std::string::npos) {
+                productFile.close();
+                return true; // MotorbikeID already exists
+            }
+        }
+
+        productFile.close();
+        return false; // MotorbikeID does not exist
+    }
 
 };
 

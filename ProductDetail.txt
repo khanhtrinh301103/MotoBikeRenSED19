@@ -1,10 +1,21 @@
 MotorbikeID: 12345
-Model: suzuki
-Color: red
-Engine Size: 500
-Transmission Mode: credit
+Model: yamaha
+Color: blue
+Engine Size: 600
+Transmission Mode: cash
 Year Made: 2023
-Description: fast
-Owner ID: 567
-Expected Rented Rate: 5%
-Rate ID: 98654
+Description: quick
+Owner ID: 123
+Expected Rented Rate: 10%
+Rate ID: 12345
+
+MotorbikeID: 45678
+Model: Honda
+Color: yellow
+Engine Size: 800
+Transmission Mode: Manual
+Year Made: 2020
+Description: comfortable
+Owner ID: 789
+Expected Rented Rate: 7%
+Rate ID: 65432
