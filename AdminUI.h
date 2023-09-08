@@ -123,7 +123,7 @@ private:
                 std::cout << "Current details:" << std::endl;
 
                 // Print current details
-                for (size_t j = i; j < i + 9; j++)
+                for (size_t j = i; j < i + 10; j++)
                 {
                     std::cout << lines[j] << std::endl;
                 }
@@ -177,6 +177,11 @@ private:
                 std::getline(std::cin, newRateId);
                 lines[i + 9] = "Rate ID: " + newRateId;
 
+                std::cout << "Product status: ";
+                std::string newProductStatus;
+                std::getline(std::cin, newProductStatus);
+                lines[i + 10] = "Product status: " + newProductStatus;
+
                 std::ofstream outputFile(fileName);
                 if (outputFile)
                 {
@@ -221,7 +226,7 @@ private:
             }
 
             // Input the rest of the motorbike details
-            std::string model, color, engineSize, transmissionMode, yearMade, description, ownerId, rentedRate, rateId;
+            std::string model, color, engineSize, transmissionMode, yearMade, description, ownerId, rentedRate, rateId, productStatus;
 
             std::cin.ignore(); // Clear the newline left in the buffer
 
@@ -252,6 +257,9 @@ private:
             std::cout << "Rate ID: ";
             std::getline(std::cin, rateId);
 
+            std::cout << "Product status: ";
+            std::getline(std::cin, productStatus);
+
             // Write the new motorbike details to the file
             productFile << "\nMotorbikeID: " << motorbikeId << std::endl;
             productFile << "Model: " << model << std::endl;
@@ -263,6 +271,7 @@ private:
             productFile << "Owner ID: " << ownerId << std::endl;
             productFile << "Expected Rented Rate: " << rentedRate << std::endl;
             productFile << "Rate ID: " << rateId << std::endl;
+            productFile << "Product status: " << productStatus << std::endl;
 
             productFile.close();
             std::cout << "New motorbike added successfully." << std::endl;
@@ -315,7 +324,7 @@ private:
         for (size_t i = 0; i < lines.size(); i++) {
             if (lines[i].find("MotorbikeID: " + motorbikeIdToDelete) != std::string::npos) {
                 // Remove the lines corresponding to the motorbike
-                for (int j = 0; j < 10; j++) {
+                for (int j = 0; j < 11; j++) {
                     lines.erase(lines.begin() + i);
                 }
 

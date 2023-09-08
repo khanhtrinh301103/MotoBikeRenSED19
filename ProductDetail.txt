@@ -8,4 +8,16 @@ Description: quick
 Owner ID: 123
 Expected Rented Rate: 10%
 Rate ID: 12345
+product status: rented
 
+MotorbikeID: 45678
+Model: Honda
+Color: yellow
+Engine Size: 800
+Transmission Mode: Manual
+Year Made: 2021
+Description: comfortable
+Owner ID: 789
+Expected Rented Rate: 8%
+Rate ID: 65432
+Product status: rented
