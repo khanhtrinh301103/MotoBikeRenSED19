@@ -94,21 +94,25 @@ private:
 
         bool motorbikeFound = false;
         std::string line;
-        std::vector<std::string> updatedLines; // To store the updated lines
+        std::streampos linePos;
+        std::streampos nextLinePos;
 
         // Search for the specified MotorbikeID in the file
         while (std::getline(file, line)) {
+            linePos = file.tellg(); // Store the position of the line
+
             // Check if the line contains the specified MotorbikeID
             if (line.find("MotorbikeID: " + std::to_string(motorbikeIDToEdit)) != std::string::npos) {
                 motorbikeFound = true;
-
-                // Update the existing line with new values
-                updatedLines.push_back(line); // MotorbikeID line
 
                 // Ask the admin to enter new values for each field except MotorbikeID and update them
                 std::string model, color, transmission, description, expectedRentedRate;
                 int engineSize, yearMade, ownerID, rateID;
 
+                // Skip the MotorbikeID line
+                std::getline(file, line);
+
+                // Read and update the rest of the fields
                 std::cout << "Enter new Model: ";
                 std::cin.ignore(); // Clear the input buffer
                 std::getline(std::cin, model);
@@ -132,34 +136,27 @@ private:
                 std::cout << "Enter new Rate ID: ";
                 std::cin >> rateID;
 
-                updatedLines.push_back("Model: " + model); // Add updated Model line
-                updatedLines.push_back("Color: " + color);
-                updatedLines.push_back("Engine Size: " + std::to_string(engineSize));
-                updatedLines.push_back("Transmission Mode: " + transmission);
-                updatedLines.push_back("Year Made: " + std::to_string(yearMade));
-                updatedLines.push_back("Description: " + description);
-                updatedLines.push_back("Owner ID: " + std::to_string(ownerID));
-                updatedLines.push_back("Expected Rented Rate: " + expectedRentedRate);
-                updatedLines.push_back("Rate ID: " + std::to_string(rateID));
-            } else {
-                updatedLines.push_back(line); // Keep other lines as they are
+                // Move to the next line
+                std::getline(file, line);
+                nextLinePos = file.tellg();
+
+                // Go back to the beginning of the line and replace it with the updated content
+                file.seekp(linePos);
+                file << "Model: " << model << std::endl;
+                file << "Color: " << color << std::endl;
+                file << "Engine Size: " << engineSize << std::endl;
+                file << "Transmission Mode: " << transmission << std::endl;
+                file << "Year Made: " << yearMade << std::endl;
+                file << "Description: " << description << std::endl;
+                file << "Owner ID: " << ownerID << std::endl;
+                file << "Expected Rented Rate: " << expectedRentedRate << std::endl;
+                file << "Rate ID: " << rateID << std::endl;
+
+                // Set the file position to the end of the updated content
+                file.seekp(nextLinePos);
+
+                break; // Stop searching since the MotorbikeID was found and updated
             }
-        }
-
-        // Close the file stream
-        file.close();
-
-        // Open the file again in write mode to overwrite its content
-        file.open("ProductDetail.txt", std::ios::out | std::ios::trunc);
-
-        if (!file.is_open()) {
-            std::cerr << "Failed to open the file for writing." << std::endl;
-            return;
-        }
-
-        // Write the updated lines back to the file
-        for (const std::string& updatedLine : updatedLines) {
-            file << updatedLine << std::endl;
         }
 
         // Close the file stream
@@ -171,6 +168,7 @@ private:
             std::cout << "Motorbike with MotorbikeID " << motorbikeIDToEdit << " not found." << std::endl;
         }
     }
+
 
 
 };
