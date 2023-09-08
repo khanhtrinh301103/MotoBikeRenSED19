@@ -17,11 +17,12 @@ public:
         while (true) {
             std::cout << "\nAdmin Menu:" << std::endl;
             std::cout << "1. View all user accounts" << std::endl;
-            std::cout << "2. View Product Details" << std::endl; // New option
-            std::cout << "3. Edit Product Details" << std::endl; // New option
-            std::cout << "4. Add New Motorbike" << std::endl;    // New option
-            std::cout << "5. Log out" << std::endl;
-            std::cout << "Enter your choice (1/2/3/4/5): ";
+            std::cout << "2. View Product Details" << std::endl;
+            std::cout << "3. Edit Product Details" << std::endl;
+            std::cout << "4. Add New Motorbike" << std::endl;
+            std::cout << "5. Delete Motorbike by ID" << std::endl; // New option
+            std::cout << "6. Log out" << std::endl;
+            std::cout << "Enter your choice (1/2/3/4/5/6): ";
 
             std::cin >> choice;
 
@@ -30,19 +31,22 @@ public:
                     viewAllUserAccounts();
                     break;
                 case 2:
-                    viewProductDetails(); // New function to view product details
+                    viewProductDetails();
                     break;
                 case 3:
-                    EditProductDetails(); // New function to edit product details
+                    EditProductDetails();
                     break;
                 case 4:
-                    AddNewMotorbike();    // New function to add a new motorbike
+                    AddNewMotorbike();
                     break;
                 case 5:
+                    DeleteMotorbikeById(); // New function to delete motorbike by ID
+                    break;
+                case 6:
                     std::cout << "Exiting admin account. Goodbye!" << std::endl;
                     return;
                 default:
-                    std::cout << "Invalid choice. Please enter a valid option (1/2/3/4/5)." << std::endl;
+                    std::cout << "Invalid choice. Please enter a valid option (1/2/3/4/5/6)." << std::endl;
                     break;
             }
         }
@@ -282,6 +286,59 @@ private:
 
         productFile.close();
         return false; // MotorbikeID does not exist
+    }
+
+        static void DeleteMotorbikeById() {
+        std::cout << "Enter the MotorbikeID to delete: ";
+        std::string motorbikeIdToDelete;
+        std::cin >> motorbikeIdToDelete;
+
+        std::string fileName = "ProductDetail.txt";
+        std::ifstream inputFile(fileName);
+
+        if (!inputFile) {
+            std::cout << "File not found." << std::endl;
+            return;
+        }
+
+        std::vector<std::string> lines;
+        std::string line;
+
+        while (std::getline(inputFile, line)) {
+            lines.push_back(line);
+        }
+
+        inputFile.close();
+
+        bool found = false;
+
+        for (size_t i = 0; i < lines.size(); i++) {
+            if (lines[i].find("MotorbikeID: " + motorbikeIdToDelete) != std::string::npos) {
+                // Remove the lines corresponding to the motorbike
+                for (int j = 0; j < 10; j++) {
+                    lines.erase(lines.begin() + i);
+                }
+
+                std::ofstream outputFile(fileName);
+                if (outputFile) {
+                    for (const std::string &modifiedLine : lines) {
+                        outputFile << modifiedLine << std::endl;
+                    }
+
+                    outputFile.close();
+                    std::cout << "Motorbike deleted successfully." << std::endl;
+                } else {
+                    std::cout << "Error writing to the file." << std::endl;
+                }
+
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            std::cout << "MotorbikeID not found." << std::endl;
+        }
     }
 
 };
