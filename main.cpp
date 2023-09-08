@@ -3,7 +3,8 @@
 #include "UserLogin.h"
 #include "RegisterAccount.h"
 #include "AdminUI.h"
-#include "ProductDetails.h" // Include the ProductDetails header
+#include "ProductDetails.h"
+#include "UserUI.h"
 
 using namespace std;
 
@@ -36,6 +37,7 @@ int main() {
                         AdminUI::showMenu(); // Show the admin menu
                     } else if (UserLogin::isUserLoginValid(username, password)) {
                         cout << "User login successful. Welcome, " << username << "!" << endl;
+                        UserUI::showMenu(username);
                         // Add user-specific functionality here
                     } else {
                         cout << "Login failed. Please check your username and password." << endl;
