@@ -8,7 +8,8 @@ Description: quick
 Owner ID: 123
 Expected Rented Rate: 10%
 Rate ID: 12345
-product status: rented
+product status: available
+city: Ho Chi Minh
 
 MotorbikeID: 45678
 Model: Honda
@@ -20,4 +21,5 @@ Description: comfortable
 Owner ID: 789
 Expected Rented Rate: 8%
 Rate ID: 65432
-Product status: rented
+Product status: available
+city: Vung Tau

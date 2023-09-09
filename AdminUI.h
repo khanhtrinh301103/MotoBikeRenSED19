@@ -8,6 +8,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include "searchEngine.h"
 
 class AdminUI {
 public:
@@ -17,11 +18,12 @@ public:
         while (true) {
             std::cout << "\nAdmin Menu:" << std::endl;
             std::cout << "1. View all user accounts" << std::endl;
-            std::cout << "2. View Product Details" << std::endl;
-            std::cout << "3. Edit Product Details" << std::endl;
-            std::cout << "4. Add New Motorbike" << std::endl;
-            std::cout << "5. Delete Motorbike by ID" << std::endl; // New option
-            std::cout << "6. Log out" << std::endl;
+            std::cout << "2. View motorbike Details" << std::endl;
+            std::cout << "3. Search for motorbikes by city name" << std::endl;
+            std::cout << "4. Edit motorbike Details" << std::endl;
+            std::cout << "5. Add New Motorbike" << std::endl;
+            std::cout << "6. Delete Motorbike by ID" << std::endl; // New option
+            std::cout << "7. Log out" << std::endl;
             std::cout << "Enter your choice (1/2/3/4/5/6): ";
 
             std::cin >> choice;
@@ -34,15 +36,18 @@ public:
                     viewProductDetails();
                     break;
                 case 3:
-                    EditProductDetails();
+                    SearchEngine::searchMotorbikesByCity();
                     break;
                 case 4:
-                    AddNewMotorbike();
+                    EditProductDetails();
                     break;
                 case 5:
-                    DeleteMotorbikeById(); // New function to delete motorbike by ID
+                    AddNewMotorbike();
                     break;
                 case 6:
+                    DeleteMotorbikeById(); // New function to delete motorbike by ID
+                    break;
+                case 7:
                     std::cout << "Exiting admin account. Goodbye!" << std::endl;
                     return;
                 default:
@@ -123,7 +128,7 @@ private:
                 std::cout << "Current details:" << std::endl;
 
                 // Print current details
-                for (size_t j = i; j < i + 10; j++)
+                for (size_t j = i; j < i + 11; j++)
                 {
                     std::cout << lines[j] << std::endl;
                 }
@@ -181,6 +186,11 @@ private:
                 std::string newProductStatus;
                 std::getline(std::cin, newProductStatus);
                 lines[i + 10] = "Product status: " + newProductStatus;
+                
+                std::cout << "city: ";
+                std::string newCity;
+                std::getline(std::cin, newCity);
+                lines[i + 11] = "City " + newCity;
 
                 std::ofstream outputFile(fileName);
                 if (outputFile)
@@ -226,7 +236,7 @@ private:
             }
 
             // Input the rest of the motorbike details
-            std::string model, color, engineSize, transmissionMode, yearMade, description, ownerId, rentedRate, rateId, productStatus;
+            std::string model, color, engineSize, transmissionMode, yearMade, description, ownerId, rentedRate, rateId, productStatus, City;
 
             std::cin.ignore(); // Clear the newline left in the buffer
 
@@ -260,6 +270,9 @@ private:
             std::cout << "Product status: ";
             std::getline(std::cin, productStatus);
 
+            std::cout << "City: ";
+            std::getline(std::cin, City);
+
             // Write the new motorbike details to the file
             productFile << "\nMotorbikeID: " << motorbikeId << std::endl;
             productFile << "Model: " << model << std::endl;
@@ -272,6 +285,7 @@ private:
             productFile << "Expected Rented Rate: " << rentedRate << std::endl;
             productFile << "Rate ID: " << rateId << std::endl;
             productFile << "Product status: " << productStatus << std::endl;
+            productFile << "City: " << City << std::endl;
 
             productFile.close();
             std::cout << "New motorbike added successfully." << std::endl;

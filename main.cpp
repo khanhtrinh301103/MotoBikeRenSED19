@@ -5,6 +5,7 @@
 #include "AdminUI.h"
 #include "ProductDetails.h"
 #include "UserUI.h"
+#include "searchEngine.h"
 
 using namespace std;
 
@@ -16,7 +17,8 @@ int main() {
         cout << "1. Login" << endl;
         cout << "2. Register" << endl;
         cout << "3. View Motorbikes Available" << endl; // New option
-        cout << "4. Exit" << endl;
+        cout << "4. Search for motorbikes by city name" << endl;
+        cout << "5. Exit" << endl;
         cout << "Enter your choice (1/2/3/4): ";
 
         cin >> choice;
@@ -75,6 +77,9 @@ int main() {
                 ProductDetails::displayProductDetails(); // Call the function using the class
                 break;
             case 4:
+                SearchEngine::searchMotorbikesByCity();
+                break;
+            case 5:
                 cout << "Exiting the program. Goodbye!" << endl;
                 return 0; // Exit the program
             default:
