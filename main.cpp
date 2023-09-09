@@ -6,6 +6,7 @@
 #include "ProductDetails.h"
 #include "UserUI.h"
 #include "searchEngine.h"
+#include <limits> // Include this header for numeric_limits
 
 using namespace std;
 
@@ -23,7 +24,13 @@ int main() {
         cout << "========================================"<< endl;
         cout << "Enter your choice (1-5): ";
 
-        cin >> choice;
+        if (!(cin >> choice)) {
+            // Input is not an integer
+            cin.clear(); // Clear error flags
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer
+            cout << "Invalid input. Please enter a valid integer choice (1-5).\n" << endl;
+            continue; // Skip the rest of the loop iteration and ask for input again
+        }
 
         switch (choice) {
             case 1:
@@ -85,10 +92,9 @@ int main() {
                 cout << "Exiting the program. Goodbye!" << endl;
                 return 0; // Exit the program
             default:
-                cout << "Invalid choice. Please enter a valid option (1/2/3/4)." << endl;
                 break;
         }
     }
-
+    
     return 0;
 }
