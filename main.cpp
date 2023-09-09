@@ -13,12 +13,14 @@ int main() {
     int choice;
 
     while (true) {
-        cout << "\nWelcome to the EliteMoto rental service!" << endl;
+        cout << "========================================"<< endl;
+        cout << "WELCOME TO THE ELITEMOTO RENTAL SERVICE!" << endl;
         cout << "1. Login" << endl;
         cout << "2. Register" << endl;
         cout << "3. View Motorbikes Available" << endl; // New option
         cout << "4. Search for motorbikes by city name" << endl;
         cout << "5. Exit" << endl;
+        cout << "========================================"<< endl;
         cout << "Enter your choice (1-5): ";
 
         cin >> choice;
@@ -26,7 +28,7 @@ int main() {
         switch (choice) {
             case 1:
                 {
-                    cout << "You selected 'Login'. Please enter your username: ";
+                    cout << "\nYou selected 'Login'. Please enter your username: ";
                     string username;
                     cin >> username;
                     
@@ -48,7 +50,7 @@ int main() {
                 break;
             case 2:
                 {
-                    cout << "You selected 'Register'. Please enter a new username: ";
+                    cout << "\nYou selected 'Register'. Please enter a new username: ";
                     string newUsername;
                     cin >> newUsername;
 
