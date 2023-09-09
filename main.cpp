@@ -33,14 +33,14 @@ int main() {
                     cin >> password;
 
                     if (AdminLogin::isAdminLoginValid(username, password)) {
-                        cout << "Admin login successful. Welcome, " << username << "!" << endl;
+                        cout << "\nAdmin login successful. Welcome, " << username << "!" << endl;
                         AdminUI::showMenu(); // Show the admin menu
                     } else if (UserLogin::isUserLoginValid(username, password)) {
-                        cout << "User login successful. Welcome, " << username << "!" << endl;
+                        cout << "\nUser login successful. Welcome, " << username << "!" << endl;
                         UserUI::showMenu(username);
                         // Add user-specific functionality here
                     } else {
-                        cout << "Login failed. Please check your username and password." << endl;
+                        cout << "Login failed. Please check your username or password." << endl;
                     }
                 }
                 break;

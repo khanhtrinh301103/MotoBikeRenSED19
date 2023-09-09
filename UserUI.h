@@ -194,6 +194,10 @@ static void editUserProfile(const std::string& username) {
             found = true;
             break;
         }
+        else{
+            std::cout << "\nPlease fill your profile first" << std::endl;
+            break;
+        }
     }
 
     if (!found) {
