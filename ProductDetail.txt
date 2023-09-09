@@ -23,3 +23,16 @@ Expected Rented Rate: 8%
 Rate ID: 65432
 Product status: available
 city: Vung Tau
+
+MotorbikeID: 98765
+Model: suzuki
+Color: orange
+Engine Size: 400
+Transmission Mode: cash
+Year Made: 2020
+Description: fast
+Owner ID: 561
+Expected Rented Rate: 6%
+Rate ID: 98745
+Product status: available
+city: Vung Tau
