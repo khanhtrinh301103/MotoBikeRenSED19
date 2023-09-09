@@ -51,6 +51,36 @@ public:
         }
     }
 
+
+    static void searchUserInformation(const std::string& username) {
+        std::ifstream userProfileFile("userProfile.txt");
+        std::string line;
+        bool foundUser = false;
+
+        while (std::getline(userProfileFile, line)) {
+            if (line.find("Username: " + username) != std::string::npos) {
+                foundUser = true;
+                std::cout << "User information for username: " << username << std::endl;
+
+                // Display user information
+                for (size_t i = 0; i < 10; i++) {
+                    if (!std::getline(userProfileFile, line)) {
+                        break;
+                    }
+                    std::cout << line << std::endl;
+                }
+
+                break;
+            }
+        }
+
+        userProfileFile.close();
+
+        if (!foundUser) {
+            std::cout << "User with username: " << username << " not found." << std::endl;
+        }
+    }
+    
 };
 
 #endif // SEARCH_ENGINE_H

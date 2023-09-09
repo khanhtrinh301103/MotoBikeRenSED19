@@ -18,13 +18,14 @@ public:
         while (true) {
             std::cout << "\nAdmin Menu:" << std::endl;
             std::cout << "1. View all user accounts" << std::endl;
-            std::cout << "2. View motorbike Details" << std::endl;
-            std::cout << "3. Search for motorbikes by city name" << std::endl;
-            std::cout << "4. Edit motorbike Details" << std::endl;
-            std::cout << "5. Add New Motorbike" << std::endl;
-            std::cout << "6. Delete Motorbike by ID" << std::endl; // New option
-            std::cout << "7. Log out" << std::endl;
-            std::cout << "Enter your choice (1/2/3/4/5/6): ";
+            std::cout << "2. Search for user information" << std::endl;
+            std::cout << "3. View motorbike Details" << std::endl;
+            std::cout << "4. Search for motorbikes by city name" << std::endl;
+            std::cout << "5. Edit motorbike Details" << std::endl;
+            std::cout << "6. Add New Motorbike" << std::endl;
+            std::cout << "7. Delete Motorbike by ID" << std::endl; // New option
+            std::cout << "8. Log out" << std::endl;
+            std::cout << "Enter your choice (1-8): ";
 
             std::cin >> choice;
 
@@ -33,21 +34,30 @@ public:
                     viewAllUserAccounts();
                     break;
                 case 2:
-                    viewProductDetails();
+                    {
+                    std::string usernameToSearch;
+                    std::cout << "Enter the username to search for: ";
+                    std::cin >> usernameToSearch;
+                    std::cout << std::endl;
+                    SearchEngine::searchUserInformation(usernameToSearch);
+                        }
                     break;
                 case 3:
-                    SearchEngine::searchMotorbikesByCity();
+                    viewProductDetails();
                     break;
                 case 4:
-                    EditProductDetails();
+                    SearchEngine::searchMotorbikesByCity();
                     break;
                 case 5:
-                    AddNewMotorbike();
+                    EditProductDetails();
                     break;
                 case 6:
-                    DeleteMotorbikeById(); // New function to delete motorbike by ID
+                    AddNewMotorbike();
                     break;
                 case 7:
+                    DeleteMotorbikeById(); // New function to delete motorbike by ID
+                    break;
+                case 8:
                     std::cout << "Exiting admin account. Goodbye!" << std::endl;
                     return;
                 default:
