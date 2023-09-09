@@ -11,7 +11,7 @@ class UserUI {
 public:
     static void showMenu(const std::string& username) {
         while (true) {
-            std::cout << "\nUser Menu for " << username << ":" << std::endl;
+            std::cout << "\nMember Menu for " << username << ":" << std::endl;
             std::cout << "1. Fill User Profile" << std::endl;
             std::cout << "2. Edit User Profile" << std::endl;
             std::cout << "3. Search Motorbikes by City" << std::endl;
@@ -21,7 +21,8 @@ public:
 
             int choice;
             std::cin >> choice;
-
+            
+            
             switch (choice) {
                 case 1:
                     fillUserProfile(username);
@@ -36,7 +37,7 @@ public:
                     rentMotorbike(username);
                     break;
                 case 5:
-                    std::cout << "Exiting the User Menu. Goodbye!" << std::endl;
+                    std::cout << "Exiting the User Menu. Goodbye!\n" << std::endl;
                     return;
                 default:
                     std::cout << "Invalid choice. Please enter a valid option (1/2/3/4)." << std::endl;
