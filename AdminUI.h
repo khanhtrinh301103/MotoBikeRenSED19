@@ -61,7 +61,7 @@ public:
                     std::cout << "Exiting admin account. Goodbye!" << std::endl;
                     return;
                 default:
-                    std::cout << "Invalid choice. Please enter a valid option (1/2/3/4/5/6)." << std::endl;
+                    std::cout << "Invalid choice. Please enter a valid option (1-8)." << std::endl;
                     break;
             }
         }

@@ -19,7 +19,7 @@ int main() {
         cout << "3. View Motorbikes Available" << endl; // New option
         cout << "4. Search for motorbikes by city name" << endl;
         cout << "5. Exit" << endl;
-        cout << "Enter your choice (1/2/3/4): ";
+        cout << "Enter your choice (1-5): ";
 
         cin >> choice;
 

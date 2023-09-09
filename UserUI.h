@@ -17,7 +17,7 @@ public:
             std::cout << "3. Search Motorbikes by City" << std::endl;
             std::cout << "4. Rent a Motorbike" << std::endl;
             std::cout << "5. Exit" << std::endl;
-            std::cout << "Enter your choice (1/2/3/4/5): ";
+            std::cout << "Enter your choice (1-5): ";
 
             int choice;
             std::cin >> choice;
