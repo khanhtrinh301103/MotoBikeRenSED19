@@ -66,8 +66,11 @@ int main() {
 
                                 if (newPassword == confirmPassword) {
                                     if (RegisterAccount::registerUser(newUsername, newPassword, confirmPassword, paymentMethod)) {
+                                        int initialCredit = 20;
                                         cout << "Registration successful. You can now log in as a user." << endl;
                                         cout << "\nLogin successfully. Welcome, our member " << newUsername << "!" << endl;
+                                        cout << "Your credit points: " << initialCredit << endl;
+                                        
                                         UserUI::showMenu(newUsername);
                                     } else {
                                         cout << "Registration failed. Please try again." << endl;

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <limits>
 
 class RegisterAccount {
 public:
@@ -49,13 +50,28 @@ public:
 
     static PaymentMethod selectPaymentMethod() {
         int choice;
-        std::cout << "Select a payment method:" << std::endl;
-        std::cout << "1. Cash" << std::endl;
-        std::cout << "2. Credit Card" << std::endl;
-        std::cout << "3. Bank Check" << std::endl;
-        std::cout << "4. Internet Banking" << std::endl;
-        std::cout << "Enter your choice (1-4): ";
-        std::cin >> choice;
+        while (true) {
+            std::cout << "You need to deposit for 20 credits for an account" << std::endl;
+            std::cout << "Please select a payment method:" << std::endl;
+            std::cout << "1. Cash" << std::endl;
+            std::cout << "2. Credit Card" << std::endl;
+            std::cout << "3. Bank Check" << std::endl;
+            std::cout << "4. Internet Banking" << std::endl;
+            std::cout << "Enter your choice (1-4): ";
+            if (!(std::cin >> choice)) {
+                // Input is not an integer
+                std::cin.clear(); // Clear error flags
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
+                std::cout << "Invalid input. Please enter a valid integer choice (1-4).\n";
+                continue; // Ask for input again
+            }
+
+            if (choice >= 1 && choice <= 4) {
+                break; // Valid input, exit the loop
+            } else {
+                std::cout << "Invalid choice. Please enter a valid option (1-4).\n";
+            }
+        }
 
         switch (choice) {
             case 1:
@@ -67,6 +83,7 @@ public:
             case 4:
                 return PaymentMethod::INTERNET_BANKING;
             default:
+                // This should not be reached, but return a default value to handle it
                 std::cout << "Invalid choice. Defaulting to Cash payment." << std::endl;
                 return PaymentMethod::CASH;
         }
