@@ -16,9 +16,14 @@ int main() {
     string password;
     
     while (true) {
-        cout << "===============================================" << endl;
-        cout << "    WELCOME TO THE ELITEMOTO RENTAL SERVICE" << endl;
-        cout << "===============================================" << endl;
+        cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
+        cout << "MOTORBIKE RENTAL APPLICATION" << endl;
+        cout << "\nInstructor: Dr. Ling Huo Chong" << endl;
+        cout << "Group: Group 19" << endl;
+        cout << "s3863969, Lu Minh Khang" << endl;
+        cout << "s3927152, Trinh Xuan Khanh" << endl;
+        cout << "s3978302, Nguyen Quy Minh Thang" << endl;
+        cout << "s3915155, Nguyen Thi Quynh Lam\n" << endl;
         cout << "Use the app as: 1. Guest   2. Member   3. Admin" << endl;
         cout << "Enter choice: ";
         
