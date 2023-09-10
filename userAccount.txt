@@ -1,4 +1,2 @@
-user user123
-khanh khanh
-ahihi ahihi123
-ahaha ahaha
+user user123 20
+ahihi ahihi 20

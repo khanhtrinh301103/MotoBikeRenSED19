@@ -14,7 +14,7 @@ int main() {
     int userType;
     string username;
     string password;
-
+    
     while (true) {
         cout << "===============================================" << endl;
         cout << "    WELCOME TO THE ELITEMOTO RENTAL SERVICE" << endl;
@@ -43,7 +43,7 @@ int main() {
                         // Input is not an integer
                         cin.clear(); // Clear error flags
                         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer
-                        cout << "Invalid input. Please enter a valid integer choice (1-3).\n" << endl;
+                        cout << "Invalid input. Please enter a valid integer choice (1-4).\n" << endl;
                         continue; // Skip the rest of the loop iteration and ask for input again
                     }
 
@@ -62,9 +62,13 @@ int main() {
                                 string confirmPassword;
                                 cin >> confirmPassword;
 
+                                RegisterAccount::PaymentMethod paymentMethod = RegisterAccount::selectPaymentMethod();
+
                                 if (newPassword == confirmPassword) {
-                                    if (RegisterAccount::registerUser(newUsername, newPassword, confirmPassword)) {
+                                    if (RegisterAccount::registerUser(newUsername, newPassword, confirmPassword, paymentMethod)) {
                                         cout << "Registration successful. You can now log in as a user." << endl;
+                                        cout << "\nLogin successfully. Welcome, our member " << newUsername << "!" << endl;
+                                        UserUI::showMenu(newUsername);
                                     } else {
                                         cout << "Registration failed. Please try again." << endl;
                                     }
