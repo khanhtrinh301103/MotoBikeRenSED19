@@ -145,7 +145,7 @@ private:
                 std::cout << "Current details:" << std::endl;
 
                 // Print current details
-                for (size_t j = i; j < i + 11; j++)
+                for (size_t j = i; j < i + 13; j++)
                 {
                     std::cout << lines[j] << std::endl;
                 }
@@ -203,11 +203,21 @@ private:
                 std::string newProductStatus;
                 std::getline(std::cin, newProductStatus);
                 lines[i + 10] = "Product status: " + newProductStatus;
+
+                std::cout << "Score: ";
+                std::string newScore;
+                std::getline(std::cin, newScore);
+                lines[i + 11] = "Score " + newScore;
+
+                std::cout << "Comment: ";
+                std::string newComment;
+                std::getline(std::cin, newComment);
+                lines[i + 12] = "Comment: " + newComment;
                 
                 std::cout << "city: ";
                 std::string newCity;
                 std::getline(std::cin, newCity);
-                lines[i + 11] = "City " + newCity;
+                lines[i + 13] = "City " + newCity;
 
                 std::ofstream outputFile(fileName);
                 if (outputFile)
@@ -253,7 +263,7 @@ private:
             }
 
             // Input the rest of the motorbike details
-            std::string model, color, engineSize, transmissionMode, yearMade, description, ownerId, rentedRate, rateId, productStatus, City;
+            std::string model, color, engineSize, transmissionMode, yearMade, description, ownerId, rentedRate, rateId, productStatus, Score, Comment, City;
 
             std::cin.ignore(); // Clear the newline left in the buffer
 
@@ -286,6 +296,12 @@ private:
 
             std::cout << "Product status: ";
             std::getline(std::cin, productStatus);
+            
+            std::cout << "Score: ";
+            std::getline(std::cin, Score);
+
+            std::cout << "Comment: ";
+            std::getline(std::cin, Comment);
 
             std::cout << "City: ";
             std::getline(std::cin, City);
@@ -302,6 +318,8 @@ private:
             productFile << "Expected Rented Rate: " << rentedRate << std::endl;
             productFile << "Rate ID: " << rateId << std::endl;
             productFile << "Product status: " << productStatus << std::endl;
+            productFile << "Score: " << Score << std::endl;
+            productFile << "Comment: " << Comment << std::endl;
             productFile << "City: " << City << std::endl;
 
             productFile.close();
@@ -355,7 +373,7 @@ private:
         for (size_t i = 0; i < lines.size(); i++) {
             if (lines[i].find("MotorbikeID: " + motorbikeIdToDelete) != std::string::npos) {
                 // Remove the lines corresponding to the motorbike
-                for (int j = 0; j < 11; j++) {
+                for (int j = 0; j < 14; j++) {
                     lines.erase(lines.begin() + i);
                 }
 

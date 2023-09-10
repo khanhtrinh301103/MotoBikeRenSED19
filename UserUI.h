@@ -15,115 +15,37 @@ public:
 
         while (true) {
             std::cout << "\nMember Menu for " << username << ":" << std::endl;
-            std::cout << "1. Fill User Profile" << std::endl;
-            std::cout << "2. Edit User Profile" << std::endl;
-            std::cout << "3. Search Motorbikes by City" << std::endl;
-            std::cout << "4. Rent a Motorbike" << std::endl;
-            std::cout << "5. Exit" << std::endl;
-            std::cout << "Enter your choice (1-5): ";
+            std::cout << "1. Edit User Profile" << std::endl;
+            std::cout << "2. Search Motorbikes by City" << std::endl;
+            std::cout << "3. Rent a Motorbike" << std::endl;
+            std::cout << "4. Exit" << std::endl;
+            std::cout << "Enter your choice (1-4): ";
 
-            if (!(std::cin >> choice) || choice < 1 || choice > 5) {
+            if (!(std::cin >> choice) || choice < 1 || choice > 4) {
                 // Input is not a valid integer in the range (1-5)
                 std::cin.clear(); // Clear error flags
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
-                std::cout << "Invalid input. Please enter a valid integer choice (1-5).\n" << std::endl;
+                std::cout << "Invalid input. Please enter a valid integer choice (1-4).\n" << std::endl;
                 continue; // Skip the rest of the loop iteration and ask for input again
             }
 
             switch (choice) {
                 case 1:
-                    fillUserProfile(username);
-                    break;
-                case 2:
                     editUserProfile(username);
                     break;
-                case 3:
+                case 2:
                     SearchEngine::searchMotorbikesByCity();
                     break;
-                case 4:
-                    rentMotorbike(username);
+                case 3:
+                    rentMotorbike();
                     break;
-                case 5:
+                case 4:
                     std::cout << "Exiting the User Menu. Goodbye!\n" << std::endl;
                     return;
                 default:
                     break;
             }
         }
-    }
-
-    static void fillUserProfile(const std::string& username) {
-        std::fstream userProfileFile("userProfile.txt", std::ios::in | std::ios::out);
-
-        if (!userProfileFile.is_open()) {
-            std::cout << "Error opening userProfile.txt." << std::endl;
-            return;
-        }
-
-        bool found = false;
-        std::string line;
-        std::string updatedProfileData;
-
-        while (std::getline(userProfileFile, line)) {
-            if (line.find("Username: " + username) != std::string::npos) {
-                // User profile already exists
-                found = true;
-                std::cout << "Profile for username " << username << " already exists." << std::endl;
-                break;
-            }
-        }
-
-        if (found) {
-            userProfileFile.close();
-            return;
-        }
-
-        // Prompt the user to fill in their profile details
-        std::string fullName;
-        int phone;
-        std::string idType;
-        int idNum;
-        int driverLicenseNum;
-        std::string expiredDate;
-
-        std::cin.ignore(); // Consume the newline character left in the buffer
-
-        std::cout << "Please fill in your profile details:" << std::endl;
-
-        std::cout << "Full Name: ";
-        std::getline(std::cin, fullName);
-
-        std::cout << "Phone: ";
-        std::cin >> phone;
-
-        std::cin.ignore(); // Consume the newline character left in the buffer
-
-        std::cout << "ID Type: ";
-        std::getline(std::cin, idType);
-
-        std::cout << "ID Number: ";
-        std::cin >> idNum;
-
-        std::cout << "Driver's License Number: ";
-        std::cin >> driverLicenseNum;
-
-        std::cout << "Expired Date (MM/YY): ";
-        std::cin >> expiredDate;
-
-        // Add the user's profile data to the file
-        userProfileFile.seekp(0, std::ios::end);
-        userProfileFile << "Username: " << username << "\n";
-        userProfileFile << "Full Name: " << fullName << "\n";
-        userProfileFile << "Phone: " << phone << "\n";
-        userProfileFile << "ID Type: " << idType << "\n";
-        userProfileFile << "ID Number: " << idNum << "\n";
-        userProfileFile << "Driver's License Number: " << driverLicenseNum << "\n";
-        userProfileFile << "Expired Date: " << expiredDate << "\n";
-        userProfileFile << "MotorbikeRentingID: 0\n"; // Initialize to 0
-        userProfileFile << std::endl; // Add an empty line to separate profiles
-
-        userProfileFile.close();
-        std::cout << "Profile saved successfully!" << std::endl;
     }
 
     static void editUserProfile(const std::string& username) {
@@ -173,6 +95,7 @@ public:
 
                 std::cout << "ID Type: ";
                 std::string newIdType;
+                std::cin.ignore();
                 std::getline(std::cin, newIdType);
                 lines[i + 3] = "ID Type: " + newIdType;
 
@@ -218,28 +141,7 @@ public:
     }
 
 
-    static void rentMotorbike(const std::string& username) {
-        // Check if the user has filled in their profile
-        std::ifstream userProfileFile("userProfile.txt");
-        std::string line;
-        bool profileComplete = false;
-
-        while (std::getline(userProfileFile, line)) {
-            if (line.find("Username: " + username) != std::string::npos) {
-                profileComplete = true;
-                break;
-            }
-        }
-
-        userProfileFile.close();
-
-        if (!profileComplete) {
-            std::cout << "Please fill in your profile before renting a motorbike." << std::endl;
-            return;
-        }
-
-        // Implement the motorbike rental logic here
-        // ...
+    static void rentMotorbike() {
         std::cout << "Motorbike rented successfully!" << std::endl;
     }
 

@@ -39,7 +39,7 @@ public:
                 motorbikeDetails.clear(); // Clear the details for the next motorbike
             }
             motorbikeDetails.push_back(line);
-            if (motorbikeDetails.size() > 11) {
+            if (motorbikeDetails.size() > 13) {
                 motorbikeDetails.erase(motorbikeDetails.begin()); // Limit to 11 lines before the city line
             }
         }

@@ -10,7 +10,9 @@ class RegisterAccount {
 public:
     enum class PaymentMethod { CASH, CREDIT_CARD, BANK_CHECK, INTERNET_BANKING };
 
-    static bool registerUser(const std::string& username, const std::string& password, const std::string& confirmPassword, PaymentMethod paymentMethod) {
+    static bool registerUser(const std::string& username, const std::string& password, const std::string& confirmPassword, PaymentMethod paymentMethod,
+                             const std::string& fullName, const std::string& phone, const std::string& idType,
+                             const std::string& idNumber, const std::string& licenseNumber, const std::string& expiryDate) {
         if (password == confirmPassword) {
             // Check if the username already exists in userAccount.txt
             if (isUsernameInFile(username, "userAccount.txt")) {
@@ -25,17 +27,30 @@ public:
             }
 
             std::ofstream userFile("userAccount.txt", std::ios::app); // Open the file in append mode
+            std::ofstream userProfileFile("userProfile.txt", std::ios::app); // Open the user profile file in append mode
 
-            if (userFile.is_open()) {
+            if (userFile.is_open() && userProfileFile.is_open()) {
                 int initialCredit = 20;
 
                 // Simulate the payment process based on the selected payment method
                 bool paymentSuccessful = processPayment(paymentMethod);
 
                 if (paymentSuccessful) {
-                    // Write the new username, password, and initial credit points to the file
+                    // Write the new username, password, and initial credit points to the userAccount file
                     userFile << username << " " << password << " " << initialCredit << "\n";
                     userFile.close();
+
+                    // Write user profile information to the userProfile file
+                    userProfileFile << "\nUsername: " << username << "\n";
+                    userProfileFile << "Full Name: " << fullName << "\n";
+                    userProfileFile << "Phone: " << phone << "\n";
+                    userProfileFile << "ID Type: " << idType << "\n";
+                    userProfileFile << "ID Number: " << idNumber << "\n";
+                    userProfileFile << "Driver's License Number: " << licenseNumber << "\n";
+                    userProfileFile << "Expired Date: " << expiryDate << "\n";
+                    userProfileFile << "MotorbikeRentingID: 0\n"; // Assuming an initial value
+
+                    userProfileFile.close();
 
                     std::cout << "Registration successful. You have " << initialCredit << " credit points." << std::endl;
                     return true; // Registration successful

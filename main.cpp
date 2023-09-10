@@ -64,13 +64,37 @@ int main() {
 
                                 RegisterAccount::PaymentMethod paymentMethod = RegisterAccount::selectPaymentMethod();
 
+                                cout << "Please enter your full name: ";
+                                string fullName;
+                                cin.ignore(); // Clear the newline left in the buffer
+                                getline(cin, fullName);
+
+                                cout << "Please enter your phone number: ";
+                                string phone;
+                                cin >> phone;
+
+                                cout << "Please enter your ID type (e.g., passport): ";
+                                string idType;
+                                cin.ignore();
+                                getline(cin, idType);
+
+                                cout << "Please enter your ID number: ";
+                                string idNumber;
+                                cin >> idNumber;
+
+                                cout << "Please enter your driver's license number: ";
+                                string licenseNumber;
+                                cin >> licenseNumber;
+
+                                cout << "Please enter the expiry date of your driver's license (e.g., 07/12): ";
+                                string expiryDate;
+                                cin >> expiryDate;
+
                                 if (newPassword == confirmPassword) {
-                                    if (RegisterAccount::registerUser(newUsername, newPassword, confirmPassword, paymentMethod)) {
-                                        int initialCredit = 20;
+                                    if (RegisterAccount::registerUser(newUsername, newPassword, confirmPassword, paymentMethod, fullName, phone, idType, idNumber, licenseNumber, expiryDate)) {
                                         cout << "Registration successful. You can now log in as a user." << endl;
                                         cout << "\nLogin successfully. Welcome, our member " << newUsername << "!" << endl;
-                                        cout << "Your credit points: " << initialCredit << endl;
-                                        
+
                                         UserUI::showMenu(newUsername);
                                     } else {
                                         cout << "Registration failed. Please try again." << endl;
@@ -78,6 +102,7 @@ int main() {
                                 } else {
                                     cout << "Password confirmation does not match. Please try again." << endl;
                                 }
+
                             }
                             break;
                         case 2:
