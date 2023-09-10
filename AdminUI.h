@@ -9,6 +9,7 @@
 #include <string>
 #include <sstream>
 #include "searchEngine.h"
+#include <limits>
 
 class AdminUI {
 public:
@@ -27,8 +28,14 @@ public:
             std::cout << "8. Log out" << std::endl;
             std::cout << "Enter your choice (1-8): ";
 
-            std::cin >> choice;
-            
+            if (!(std::cin >> choice) || choice < 1 || choice > 8) {
+                // Input is not a valid integer in the range (1-8)
+                std::cin.clear(); // Clear error flags
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
+                std::cout << "Invalid input. Please enter a valid integer choice (1-8).\n" << std::endl;
+                continue; // Skip the rest of the loop iteration and ask for input again
+            }
+
             switch (choice) {
                 case 1:
                     viewAllUserAccounts();
@@ -61,11 +68,11 @@ public:
                     std::cout << "Exiting admin account. Goodbye!" << std::endl;
                     return;
                 default:
-                    std::cout << "Invalid choice. Please enter a valid option (1-8)." << std::endl;
                     break;
             }
         }
     }
+
 
 private:
     static void viewAllUserAccounts() {

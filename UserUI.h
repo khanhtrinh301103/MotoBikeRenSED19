@@ -6,10 +6,13 @@
 #include <string>
 #include <vector>
 #include "searchEngine.h"
+#include <limits>
 
 class UserUI {
 public:
     static void showMenu(const std::string& username) {
+        int choice;
+
         while (true) {
             std::cout << "\nMember Menu for " << username << ":" << std::endl;
             std::cout << "1. Fill User Profile" << std::endl;
@@ -19,10 +22,14 @@ public:
             std::cout << "5. Exit" << std::endl;
             std::cout << "Enter your choice (1-5): ";
 
-            int choice;
-            std::cin >> choice;
-            
-            
+            if (!(std::cin >> choice) || choice < 1 || choice > 5) {
+                // Input is not a valid integer in the range (1-5)
+                std::cin.clear(); // Clear error flags
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
+                std::cout << "Invalid input. Please enter a valid integer choice (1-5).\n" << std::endl;
+                continue; // Skip the rest of the loop iteration and ask for input again
+            }
+
             switch (choice) {
                 case 1:
                     fillUserProfile(username);
@@ -31,7 +38,7 @@ public:
                     editUserProfile(username);
                     break;
                 case 3:
-                    SearchEngine::searchMotorbikesByCity();;
+                    SearchEngine::searchMotorbikesByCity();
                     break;
                 case 4:
                     rentMotorbike(username);
@@ -40,7 +47,6 @@ public:
                     std::cout << "Exiting the User Menu. Goodbye!\n" << std::endl;
                     return;
                 default:
-                    std::cout << "Invalid choice. Please enter a valid option (1/2/3/4)." << std::endl;
                     break;
             }
         }
